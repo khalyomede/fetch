@@ -63,7 +63,6 @@ All the configuration file should return a PHP array.
 Let us assume the file `app.php` contains:
 
 ```php
-
 return [
   'name' => 'My app',
   'charset' => 'utf-8'
