@@ -1,0 +1,3 @@
+suites:
+  default:    
+    spec_prefix: test

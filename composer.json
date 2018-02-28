@@ -1,0 +1,27 @@
+{
+    "name": "khalyomede/fetch",
+    "description": "Quickly retrieve your PHP data",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Khalyomede",
+            "email": "khalyomede@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Khalyomede\\": "src/"
+        }
+    }
+}
