@@ -1,5 +1,9 @@
 # Fetch
 
+![PHP from Packagist](https://img.shields.io/packagist/php-v/khalyomede/fetch.svg)
+![Packagist](https://img.shields.io/packagist/v/khalyomede/fetch.svg)
+![Packagist](https://img.shields.io/packagist/l/khalyomede/fetch.svg)
+
 Quickly retrieve your PHP data.
 
 From 
