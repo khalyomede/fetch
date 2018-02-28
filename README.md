@@ -17,7 +17,7 @@ To
 ```php
 $fetch = new Fetch('config');
 
-$charset = $fetch->from('database.option.initial-command');
+$command = $fetch->from('database.option.initial-command');
 ```
 
 ## Summary
