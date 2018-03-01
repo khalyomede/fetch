@@ -59,6 +59,7 @@ index.php
 
 - [Example 1: fetching a data from a simple file](#example-1-fetching-a-data-from-a-single-file)
 - [Example 2: fetching a data by traversing multiple folders](#example-2-fetching-a-data-by-traversing-multiple-folders)
+- [Example 3: fetching a data inside nested keys](#example-3-fetching-a-data-inside-nested-keys)
 
 ### Example 1: fetching a data from a simple file
 
@@ -116,6 +117,36 @@ Will display
 
 ```
 SET names 'utf-8'
+```
+
+### Example 3: fetching a data inside nested keys
+
+All configuration files should return a PHP array.
+
+Let us assume the file `option.php` contains:
+
+```php
+return [
+  'cache' => [
+    'strategy' => 'cache-first'
+  ]
+];
+```
+
+```php
+use Khalyomede\Fetch;
+
+$fetch = new Fetch( __DIR__ . '/config' );
+
+$strategy = $fetch->from('database.option.cache.strategy');
+
+print_r($stategy);
+```
+
+Will display:
+
+```
+cache-first
 ```
 
 ## Methods definitions
