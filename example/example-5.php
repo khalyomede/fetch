@@ -5,7 +5,9 @@
 
 	$fetch = new Fetch( __DIR__ . '/config' );
 
-	$strategy = $fetch->from('database.option.cache');
+	$fetch->usingCache( __DIR__ . '/cache' );
 
-	print_r($strategy);
+	$timeout = $fetch->from('database.option.timeout');
+
+	print_r($timeout);
 ?>

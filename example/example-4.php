@@ -5,7 +5,7 @@
 
 	$fetch = new Fetch( __DIR__ . '/config' );
 
-	$strategy = $fetch->from('database.option.cache');
+	$options = $fetch->from('database.option');
 
-	print_r($strategy);
+	print_r($options);
 ?>
