@@ -134,7 +134,7 @@
 					}
 					else if( is_dir("$partial_path/$part") === true ) {
 						if( is_readable("$partial_path/$part") === false ) {
-							throw new InvalidArgumentException(sprintf('Fetch::from could not open file at location "%s" (maybe it is already opened by another program?)', "$partial_path/$part"));
+							throw new RuntimeException(sprintf('Fetch::from could not open file at location "%s" (maybe it is already opened by another program?)', "$partial_path/$part"));
 						}
 
 						$partial_path .= "/$part";
