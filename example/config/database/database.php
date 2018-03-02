@@ -4,5 +4,4 @@
 		'database' => 'test',
 		'user' => 'root',
 		'password' => 'root'
-	];
-?>
+  ];

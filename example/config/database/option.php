@@ -4,6 +4,6 @@
 		'cache' => [
 			'strategy' => 'cache-first'
 		],
-		'timeout' => 10.5
+		'timeout/amin' => 10.5
 	];
 ?>
