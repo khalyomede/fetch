@@ -7,7 +7,7 @@
 	* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 	*
 	* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-	* 
+	*
 	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	*/
 
@@ -91,7 +91,8 @@
 		 * @throws RuntimeException
 		 */
 		public function from(string $path) {
-			$cached_path = $this->cache_folder_path . "/$path.php";
+      $hexadecimal_path = bin2hex($path);
+			$cached_path = $this->cache_folder_path . "/$hexadecimal_path.php";
 
 			if( $this->cache_disabled === false && file_exists($cached_path) ) {
 				if( strlen($this->cache_folder_path) === 0 ) {
@@ -145,9 +146,16 @@
 				}
 
 				if( $this->cache_disabled === false ) {
+          $max_filename_size = 255;
+          $extension_size = 4; // strlen(".php")
+
+          if (strlen($hexadecimal_path) > $max_filename_size - $extension_size) {
+            throw new InvalidArgumentExeption(sprintf('Fetch::from expects first parameter to be of size less than 251 characters but path was %d characters long', strlen($path)));
+          }
+
 					$php_code = var_export($value, true);
 
-					file_put_contents($this->cache_folder_path . "/$path.php", "<?php return $php_code; ?>");
+					file_put_contents($this->cache_folder_path . "/$hexadecimal_path.php", "<?php return $php_code; ?>");
 				}
 
 				return $value;
