@@ -244,9 +244,9 @@ The cache might be outdated if you use it without clearing it after an update of
 
 - [construct()](#construct)
 - [from()](#from)
-- [usingCache()](#using-cache)
-- [disableCache()](#disable-cache)
-- [enableCache()](#enable-cache)
+- [usingCache()](#usingcache)
+- [disableCache()](#disablecache)
+- [enableCache()](#enablecache)
 
 ### construct()
 
