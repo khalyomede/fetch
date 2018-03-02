@@ -91,7 +91,7 @@
 		 * @throws RuntimeException
 		 */
 		public function from(string $path) {
-      $hexadecimal_path = bin2hex($path);
+      		$hexadecimal_path = $this->crypt($path);
 			$cached_path = $this->cache_folder_path . "/$hexadecimal_path.php";
 
 			if( $this->cache_disabled === false && file_exists($cached_path) ) {
@@ -146,12 +146,12 @@
 				}
 
 				if( $this->cache_disabled === false ) {
-          $max_filename_size = 255;
-          $extension_size = 4; // strlen(".php")
+          			$max_filename_size = 255;
+          			$extension_size = 4; // strlen(".php")
 
-          if (strlen($hexadecimal_path) > $max_filename_size - $extension_size) {
-            throw new InvalidArgumentExeption(sprintf('Fetch::from expects first parameter to be of size less than 251 characters but path was %d characters long', strlen($path)));
-          }
+          			if (strlen($hexadecimal_path) > $max_filename_size - $extension_size) {
+            			throw new InvalidArgumentExeption(sprintf('Fetch::from expects first parameter to be of size less than 251 characters but path was %d characters long', strlen($path)));
+          			}
 
 					$php_code = var_export($value, true);
 
@@ -160,6 +160,14 @@
 
 				return $value;
 			}
+		}
+
+		public function crypt(string $string): string {
+			return bin2hex($string);
+		}
+
+		public function decrypt(string $string): string {
+			return hex2bin($string);
 		}
 	}
 ?>

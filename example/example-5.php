@@ -7,6 +7,8 @@
 
 	$fetch->usingCache( __DIR__ . '/cache' );
 
+	echo $fetch->crypt('database.option.timeout');
+
 	$timeout = $fetch->from('database.option.timeout');
 
 	print_r($timeout);
