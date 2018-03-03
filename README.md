@@ -267,6 +267,30 @@ utf8
 
 **Note**
 
+The anonymous takes only one parameter and it can be frustrating. Use `use` statement to help you pass more arguments and overcome this constraint:
+
+```php
+use Khalyomede\Fetch;
+
+$fetch = new Fetch( __DIR__ . '/config' );
+
+$now = (new DateTime())->format('Y-m-d');
+
+$charset = $fetch->across(function($data) use($now) {
+  return "$data ($now)";
+})->from('app.charset');
+
+print_r($charset);
+```
+
+Will display
+
+```
+utf-8 (2018-03-03)
+```
+
+**Note 2**
+
 Once the function is set, it is applyied for any further fetches. If you want to remove the function, you can use `uncross()` to do so:
 
 ```php
