@@ -216,7 +216,7 @@
 
 		public function uncross(): Fetch {
 			$this->function = null;
-			$this-proxy_with_function = false;
+			$this->proxy_with_function = false;
 
 			return $this;
 		}
