@@ -62,6 +62,7 @@ index.php
 - [Example 3: fetching a data inside nested keys](#example-3-fetching-a-data-inside-nested-keys)
 - [Example 4: fetching some data using a specific key](#example-4-fetching-some-data-using-a-specific-key)
 - [Example 5: fetching faster using cache](#example-5-fetching-faster-using-cache)
+- [Example 6: using a function before actually fetching the data](#example-6-using-a-function-before-actually-fetching-the-data)
 
 ### Example 1: fetching a data from a simple file
 
@@ -240,15 +241,72 @@ $language = $fetch->from('app.locale');
 
 The cache might be outdated if you use it without clearing it after an update of your configuration data.
 
+### Example 6: using a function before actually fetching the data
+
+You can apply "middleware" function before fetching/caching the data if needed.
+
+```php
+use Khalyomede\Fetch;
+
+$fetch = new Fetch( __DIR__ . '/config' );
+
+$remove_dashes = function ($data) {
+  return str_replace('-', '', $data);
+};
+
+$charset = $fetch->across($remove_dashes)->from('app.charset');
+
+print_r($charset);
+```
+
+Will display
+
+```
+utf8
+```
+
+**Note**
+
+Once the function is set, it is applyied for any further fetches. If you want to remove the function, you can use `uncross()` to do so:
+
+```php
+use Khalyomede\Fetch;
+
+$fetch = new Fetch( __DIR__ . '/config' );
+
+$fetch->across(function($data) {
+  return str_replace('-', '', $data);
+});
+
+$charset = $fetch->from('app.charset'); 
+
+print_r($charset);
+
+$fetch->uncross(); // or $fetch->uncross()->from('...');
+
+$timeout = $fetch->from('database.option.timeout');
+
+print_r($timeout);
+```
+
+Will display
+
+```
+utf8
+12.5
+```
+
 ## Methods definitions
 
+- [across()](#across)
 - [construct()](#construct)
-- [from()](#from)
-- [usingCache()](#usingcache)
-- [disableCache()](#disablecache)
-- [enableCache()](#enablecache)
 - [crypt()](#crypt)
 - [decrypt()](#decrypt)
+- [disableCache()](#disablecache)
+- [enableCache()](#enablecache)
+- [from()](#from)
+- [uncross()](#uncross)
+- [usingCache()](#usingcache)
 
 ### construct()
 
@@ -341,6 +399,33 @@ public function decrypt(string $string): string
 **Note**
 
 Do not include the file extension (`.php`) when decrypting using the file name.
+
+### across()
+
+Apply a function (which should be an anonymous, i.e. a closure) before fetching or caching the data.
+The function should have only one parameter, which will be filled with the fetched data.
+
+```php
+public function across(callable $function): Fetch
+```
+
+**Exceptions**
+
+`InvalidArgumentException`:
+- If the function is not an anonymous function (i.e. a closure)
+- If the function does not have exactly one parameter
+- If the function does not have exactly one required parameter
+
+`ReflectionException`:
+- Check the [package website](http://php.net/manual/en/reflectionfunction.construct.php#refsect1-reflectionfunction.construct-errors) for more information
+
+### uncross()
+
+Removes the previously set function (made by `Fetch::across`).
+
+```php
+public function uncross(): Fetch
+```
 
 ## MIT Licence
 

@@ -5,11 +5,11 @@
 
 	$fetch = new Fetch( __DIR__ . '/config' );
 
-	$upper = function($data) {
-		return strtoupper($data);
+	$remove_dashes = function($data) {
+		return str_replace('-', '', $data);
 	};
 
-	$charset = $fetch->across($upper)->from('app.charset');
+	$charset = $fetch->across($remove_dashes)->from('app.charset');
 
 	print_r($charset);
 ?>
