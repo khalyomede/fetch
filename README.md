@@ -247,6 +247,8 @@ The cache might be outdated if you use it without clearing it after an update of
 - [usingCache()](#usingcache)
 - [disableCache()](#disablecache)
 - [enableCache()](#enablecache)
+- [crypt()](#crypt)
+- [decrypt()](#decrypt)
 
 ### construct()
 
@@ -319,6 +321,26 @@ Disable the cache mode.
 ```php
 public function disableCache(): Fetch
 ```
+
+### encrypt()
+
+Useful when you need to get the same files name to perform additional processes from a path.
+
+```php
+public function encrypt(string $string): string
+```
+
+### decrypt()
+
+Useful when you want to get the original path used for storing the cached file using the cached file name.
+
+```php
+public function decrypt(string $string): string
+```
+
+**Note**
+
+Do not include the file extension (`.php`) when decrypting using the file name.
 
 ## MIT Licence
 
