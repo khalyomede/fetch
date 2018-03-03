@@ -187,6 +187,10 @@
 			return hex2bin($string);
 		}
 
+		/**
+		 * @throws ReflectionException
+		 * @throws InvalidArgumentException
+		 */
 		public function across(callable $function): Fetch {
 			$reflection = new ReflectionFunction($function);
 
@@ -206,6 +210,13 @@
 
 			$this->function = $function;
 			$this->proxy_with_function = true;
+
+			return $this;
+		}
+
+		public function uncross(): Fetch {
+			$this->function = null;
+			$this-proxy_with_function = false;
 
 			return $this;
 		}
