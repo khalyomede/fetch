@@ -16,6 +16,7 @@
 	use InvalidArgumentException;
 	use RuntimeException;
 	use UnexpectedValueException;
+	use ReflectionFunction;
 
 	class Fetch {
 		/**
@@ -32,6 +33,16 @@
 		 * @var bool
 		 */
 		public $cache_disabled;
+
+		/**
+		 * @var callable
+		 */
+		public $function;
+
+		/**
+		 * @var bool
+		 */
+		public $proxy_with_function;
 
 		/**
 		 * Set the default folder to fetch the data from
@@ -52,6 +63,8 @@
 			$this->folder_path = rtrim($folder_path, '/');
 			$this->cache_disabled = true;
 			$this->cache_path_folder = '';
+			$this->function = null;
+			$this->proxy_with_function = false;
 		}
 
 		/**
@@ -145,6 +158,10 @@
 					}
 				}
 
+				if( $this->proxy_with_function ) {
+					$value = call_user_func($this->function, $value);
+				}
+
 				if( $this->cache_disabled === false ) {
           			$max_filename_size = 255;
           			$extension_size = 4; // strlen(".php")
@@ -168,6 +185,29 @@
 
 		public function decrypt(string $string): string {
 			return hex2bin($string);
+		}
+
+		public function across(callable $function): Fetch {
+			$reflection = new ReflectionFunction($function);
+
+			if( $reflection->isClosure() === false ) {
+				throw new InvalidArgumentException('Fetch::across expects parameter 1 to be an anonymous function (i.e. a closure)');
+			}
+
+			$parameters_count = $reflection->getNumberOfParameters();
+
+			if( $parameters_count !== 1 ) {
+				throw new InvalidArgumentException(sprintf('Fetch::across expects parameter 1 to be a function having exactly one parameter, %d found', $parameters_count));
+			}
+
+			if( $reflection->getNumberOfRequiredParameters() !== 1 ) {
+				throw new InvalidArgumentException('Fetch::across expects parameter 1 to be a function having exactly one required paramter');
+			}
+
+			$this->function = $function;
+			$this->proxy_with_function = true;
+
+			return $this;
 		}
 	}
 ?>
