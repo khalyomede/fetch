@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7172179b15467414a2533ea0aeb910a7",
-    "packages": [],
+    "content-hash": "4a31675523d2be381ca867922205e980",
+    "packages": [
+        {
+            "name": "khalyomede/prototype",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/khalyomede/prototype.git",
+                "reference": "4bb2e13f14cdbba37dd3dfd209298be166ccadc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/khalyomede/prototype/zipball/4bb2e13f14cdbba37dd3dfd209298be166ccadc2",
+                "reference": "4bb2e13f14cdbba37dd3dfd209298be166ccadc2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Khalyomede\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Khalyomede",
+                    "email": "khalyomede@gmail.com"
+                }
+            ],
+            "description": "Enable adding method to a class on the fly",
+            "time": "2018-03-07T23:04:31+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",

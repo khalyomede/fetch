@@ -13,12 +13,13 @@
 
 	namespace Khalyomede;
 
+	use Khalyomede\Prototype;
 	use InvalidArgumentException;
 	use RuntimeException;
 	use UnexpectedValueException;
 	use ReflectionFunction;
 
-	class Fetch {
+	class Fetch extends Prototype {
 		/**
 		 * @var string
 		 */

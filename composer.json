@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "khalyomede/prototype": "1.*"
     },
     "config": {
         "bin-dir": "bin"
