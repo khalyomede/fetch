@@ -29,6 +29,7 @@ $command = $fetch->from('database.option.initial-command');
 - [Prerequistes](#prerequisites)
 - [Installation](#installation)
 - [Examples of uses](#examples-of-uses)
+- [Prototype ready](#prototype-ready)
 - [Methods definitions](#methods-definitions)
 - [MIT licence](#mit-licence)
 
@@ -319,6 +320,34 @@ Will display
 utf8
 12.5
 ```
+
+## Prototype ready
+
+This class lets you extend its functionality to your needs without having to dive into the source code. For example:
+
+```php
+$fetch->prototype('exists', function($path) {
+  $exists = false;
+
+  try {
+    $this->from($path);
+
+    $exists = true;
+  }
+  catch(Exception $e) {}
+
+  return $exists;
+});
+
+if($fetch->exists('test')) {
+  echo $fetch->from('test');
+}
+else {
+  echo 'this configuration does not exists';
+}
+```
+
+For more information, check [khalyomede/prototype](https://github.com/khalyomede/prototype) documentation.
 
 ## Methods definitions
 
